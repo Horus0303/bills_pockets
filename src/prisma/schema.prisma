@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  seed     = "prisma/seeds/"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TypeAccount {
+  debit
+  credit
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  spent     Spent[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  icon      String
+  color     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+  Spent     Spent[]
+}
+
+model Account {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  amount    Float
+  icon      String
+  color     String
+  type      TypeAccount
+  createdAt DateTime    @default(now())
+  updatedAt DateTime?   @updatedAt
+  deletedAt DateTime?
+}
+
+model Spent {
+  id      Int    @id @default(autoincrement())
+  amount  Float
+  details String
+  color   String
+
+  categoryId Int
+  Category   Category @relation(fields: [categoryId], references: [id])
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+}

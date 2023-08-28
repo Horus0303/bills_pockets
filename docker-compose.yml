@@ -1,0 +1,29 @@
+version: '3.9'
+
+volumes:
+  cache:
+    driver: local
+  database:
+    driver: local
+
+services:
+   cache:
+      container_name: bills_pockets-redis
+      image: redis
+      command: redis-server --save 60 1 --loglevel warning --requirepass password --port ${CACHE_PORT}
+      ports:
+         - '${CACHE_PORT}:${CACHE_PORT}'
+      volumes:
+         - cache:/data
+   postgres:
+      container_name: bills_pockets-postgres
+      image: postgres:13
+      environment:
+         POSTGRES_DB: '${DB_NAME}'
+         POSTGRES_USER: '${DB_USERNAME}'
+         POSTGRES_PASSWORD: '${DB_PASSWORD}'
+         PGPORT: '${DB_PORT}'
+      ports:
+         - '${DB_PORT}:${DB_PORT}'
+      volumes:
+         - database:/data
