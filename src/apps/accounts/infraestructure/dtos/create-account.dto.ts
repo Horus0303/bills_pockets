@@ -7,7 +7,7 @@ enum TypeAccount {
 export class CreateAccountDto {
 	@ApiProperty({ required: true, example: 'BBVA Débito' })
 	@IsNotEmpty()
-	name: number;
+	name: string;
 
 	@ApiProperty({ required: true, example: 'debit' })
 	@IsNotEmpty()
@@ -20,7 +20,7 @@ export class CreateAccountDto {
 
 	@ApiProperty({ required: true, example: 'wine' })
 	@IsNotEmpty()
-	color: number;
+	color: string;
 
 	@ApiProperty({ required: true, example: 100 })
 	@IsEnum(TypeAccount)

@@ -10,7 +10,7 @@ export class AccountRepository {
 		await this.prisma.Account.create({ data });
 	}
 
-	async update(id: string, data: any): Promise<void> {
+	async update(id: number, data: any): Promise<void> {
 		await this.prisma.Account.update({ where: { id }, data });
 	}
 }

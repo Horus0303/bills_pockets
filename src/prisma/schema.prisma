@@ -52,9 +52,9 @@ model Account {
 
 model Spent {
   id      Int    @id @default(autoincrement())
+  name    String
   amount  Float
   details String
-  color   String
 
   categoryId Int
   Category   Category @relation(fields: [categoryId], references: [id])

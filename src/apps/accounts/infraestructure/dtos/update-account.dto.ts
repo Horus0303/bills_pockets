@@ -1,21 +1,31 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+enum TypeAccount {
+	Debit = 'debit',
+	Credit = 'credit',
+}
+
 export class UpdateAccountDto {
-	@ApiProperty({ required: true, example: 'BBVA Débito' })
-	@IsNotEmpty()
-	name: number;
+	@ApiProperty({ required: false, example: 'BBVA Débito' })
+	@IsOptional()
+	name?: number;
 
-	@ApiProperty({ required: true, example: 'debit' })
-	@IsNotEmpty()
-	icon: number;
+	@ApiProperty({ required: false, example: 'debit' })
+	@IsOptional()
+	icon?: number;
 
-	@ApiProperty({ required: true, example: 85000 })
+	@ApiProperty({ required: false, example: 85000 })
 	@IsNumber()
-	@IsNotEmpty()
-	amount: number;
+	@IsOptional()
+	amount?: number;
 
-	@ApiProperty({ required: true, example: 'wine' })
-	@IsNotEmpty()
-	color: number;
+	@ApiProperty({ required: false, example: 'wine' })
+	@IsOptional()
+	color?: number;
+
+	@ApiProperty({ required: false, example: 100 })
+	@IsEnum(TypeAccount)
+	@IsOptional()
+	type?: TypeAccount;
 }

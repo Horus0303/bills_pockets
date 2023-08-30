@@ -14,7 +14,7 @@ export class AccountService {
 		await this.accountRepository.create(body);
 	}
 
-	async update(id: string, body: any): Promise<any> {
+	async update(id: number, body: any): Promise<any> {
 		await this.accountRepository.update(id, body);
 	}
 }

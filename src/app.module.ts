@@ -4,10 +4,12 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { globalConfig } from './shared/config';
 import { Module } from '@nestjs/common';
+import { SpentModule } from './apps/spents/spent.module';
 import { UsersModule } from './apps/users/user.module';
 
 @Module({
 	imports: [
+		SpentModule,
 		AccountModule,
 		UsersModule,
 		ConfigModule.forRoot({
